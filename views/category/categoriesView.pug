@@ -1,0 +1,7 @@
+extends ../layout
+
+block content 
+  h1= title
+  each category in categoriesList 
+    li 
+      a(href=category.url) #{category.name}

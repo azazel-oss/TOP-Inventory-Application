@@ -1,0 +1,12 @@
+extends ../layout
+
+block content 
+  h1= title
+  p= currentCategory.description
+
+  if (itemsInCategory.length)
+    h3 Items in this category:
+      each item in itemsInCategory
+        p   
+          a(href=item.url) #{item.name}
+    

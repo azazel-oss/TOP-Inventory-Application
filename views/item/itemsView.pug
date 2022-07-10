@@ -1,0 +1,7 @@
+extends ../layout
+
+block content 
+  h1= title
+  each item in itemsList 
+    li 
+      a(href=item.url) #{item.name}

@@ -1,0 +1,22 @@
+extends ../layout
+
+block content 
+  h1 #{title} - 
+    |
+    a(href=itemCategory.url) #{itemCategory.name}
+  
+  p #{currentItem.description}
+
+  h3 Price: #{currentItem.price}
+
+  p #[strong Availability: ]
+    if (currentItem.number_stock === 0) 
+      span Out of Stock
+    else 
+      span In Stock
+
+  hr
+  p  
+    a(href=currentItem.url + '/update') Update Item
+  p  
+    a(href=currentItem.url + '/delete') Delete Item
