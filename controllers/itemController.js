@@ -110,14 +110,23 @@ const updateItemPost = [
   },
 ];
 
-function deleteItemGet(req, res) {
-  // TODO: To be implemented
-  res.send("WIP");
+async function deleteItemGet(req, res) {
+  let currentItem = await Item.findById(req.params.itemId);
+  res.render("item/itemDelete", { title: "Delete Item", currentItem });
 }
 
-function deleteItemPost(req, res) {
-  // TODO: To be implemented
-  res.send("WIP");
+async function deleteItemPost(req, res, next) {
+  let itemToDelete = await Item.findById(req.params.itemId);
+  if (!itemToDelete) {
+    return res.redirect("/inventory/category");
+  } else {
+    try {
+      await Item.findByIdAndRemove(req.params.itemId);
+      res.redirect("/inventory/category");
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = {

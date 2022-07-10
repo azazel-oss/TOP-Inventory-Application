@@ -1,0 +1,14 @@
+extends ../layout
+
+block content 
+  h1 #{title}
+
+  h3 #{currentItem.name}
+  p #{currentItem.description}
+
+  p Do you really want to delete this item?
+
+  form(action="", method="post") 
+    input#id(type="hidden" name="id")
+
+    input(type="submit", value="Delete")
