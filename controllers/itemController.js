@@ -24,12 +24,15 @@ async function createItemGet(req, res) {
 }
 
 const createItemPost = [
-  body("name", "Name should not be empty").trim().isLength({ min: 1 }).escape(),
+  body("name", "Name should not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .blacklist("<>"),
   body("description", "Description should not be empty")
     .trim()
     .isLength({ min: 1 })
-    .escape(),
-  body("price", "Price should not be negative").toFloat().escape(),
+    .blacklist("<>"),
+  body("price", "Price should not be negative").toFloat().blacklist("<>"),
   body("num_stock", "Number of items in stock should not be empty").toInt(),
   async (req, res, next) => {
     const errors = validationResult(req);
@@ -69,12 +72,15 @@ async function updateItemGet(req, res) {
 }
 
 const updateItemPost = [
-  body("name", "Name should not be empty").trim().isLength({ min: 1 }).escape(),
+  body("name", "Name should not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .blacklist("<>"),
   body("description", "Description should not be empty")
     .trim()
     .isLength({ min: 1 })
-    .escape(),
-  body("price", "Price should not be negative").toFloat().escape(),
+    .blacklist("<>"),
+  body("price", "Price should not be negative").toFloat().blacklist("<>"),
   body("num_stock", "Number of items in stock should not be empty").toInt(),
   async (req, res, next) => {
     const errors = validationResult(req);
@@ -95,7 +101,8 @@ const updateItemPost = [
       });
     } else {
       try {
-        await updatedItem.save();
+        await Item.findByIdAndUpdate(req.params.itemId, updatedItem);
+        res.redirect(updatedItem.url);
       } catch (err) {
         next(err);
       }

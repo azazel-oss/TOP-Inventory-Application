@@ -15,7 +15,7 @@ block content
     br
 
     label(for="price") Enter price:
-    input#price(type="number" step='0.01' name="price" required=true value=(undefined === currentItem ? 0.00 : currentItem.price))
+    input#price(type="number" step='0.01' min='0' name="price" required=true value=(undefined === currentItem ? 0.00 : currentItem.price))
 
     br
 
@@ -28,7 +28,7 @@ block content
     br
 
     label(for="num_stock") Enter number in stock:
-    input#num_stock(type="number" step='1' name="num_stock" value=(undefined === currentItem ? 0 : currentItem.number_stock) required=true)
+    input#num_stock(type="number" min='0' step='1' name="num_stock" value=(undefined === currentItem ? 0 : currentItem.number_stock) required=true)
 
     br
 

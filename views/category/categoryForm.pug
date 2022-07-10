@@ -1,0 +1,17 @@
+extends ../layout
+
+block content 
+  h1= title
+
+  form(action="", method="post") 
+    label(for="name") Enter name:
+    input#name(type="text" name="name" required=true value=(undefined === currentCategory ? "" : currentCategory.name))
+
+    br
+
+    label(for="description") Enter description:
+    input#description(type="text" name="description" required=true value=(undefined === currentCategory ? "" : currentCategory.description))
+
+    br
+
+    input(type="submit", value="Submit")
