@@ -8,9 +8,15 @@ const {
   updateItemPost,
   deleteItemGet,
   deleteItemPost,
+  createItemGet,
+  createItemPost,
 } = require("../controllers/itemController");
 
 router.get("/", indexGet);
+
+router.get("/create", createItemGet);
+
+router.post("/create", createItemPost);
 
 router.get("/:itemId", itemGet);
 

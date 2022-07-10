@@ -1,0 +1,35 @@
+extends ../layout
+
+block content 
+  h1= title
+
+  form(action="", method="post") 
+    label(for="name") Enter name:
+    input#name(type="text" name="name" required=true value=(undefined === currentItem ? "" : currentItem.name))
+
+    br
+
+    label(for="description") Enter description:
+    input#description(type="text" name="description" required=true value=(undefined === currentItem ? "" : currentItem.description))
+
+    br
+
+    label(for="price") Enter price:
+    input#price(type="number" step='0.01' name="price" required=true value=(undefined === currentItem ? 0.00 : currentItem.price))
+
+    br
+
+    label(for="category") Choose category:
+    select#category(name="category" required=true) 
+      -categoriesList.sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : a.name.toUpperCase() < b.name.toUpperCase ? -1 : 0)
+
+      each category in categoriesList
+        option(value=category._id selected=(category._id === currentItem.category ? true: false)) #{category.name}
+    br
+
+    label(for="num_stock") Enter number in stock:
+    input#num_stock(type="number" step='1' name="num_stock" value=(undefined === currentItem ? 0 : currentItem.number_stock) required=true)
+
+    br
+
+    input(type="submit", value="Submit")
