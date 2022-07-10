@@ -1,3 +1,4 @@
+require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -8,6 +9,18 @@ var indexRouter = require("./routes/index");
 const inventoryRouter = require("./routes/inventory");
 const categoryRouter = require("./routes/category");
 const itemRouter = require("./routes/item");
+
+const mongoose = require("mongoose");
+const mongooseURI = process.env.MONGODB_URI;
+
+mongoose.connect(mongooseURI);
+const db = mongoose.connection;
+
+db.once("connection", () => {
+  console.log("Database connected");
+});
+
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 var app = express();
 
