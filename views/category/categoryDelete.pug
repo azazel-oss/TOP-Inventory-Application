@@ -1,0 +1,24 @@
+extends ../layout
+
+block content 
+  h1 #{title}
+
+  h3 #{currentCategory.name}
+  p #{currentCategory.description}
+
+  if (categoryItems.length)
+    p You need to delete the following items before deleting this category.
+    each item in categoryItems 
+      a(href=item.url) #{item.name}
+
+      p #{item.description}
+
+      hr
+
+  else 
+    p Do you really want to delete this category?
+
+    form(action="", method="post") 
+      input#id(type="hidden" name="id")
+
+      input(type="submit", value="Delete")

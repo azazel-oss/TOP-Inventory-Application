@@ -99,14 +99,35 @@ const updateCategoryPost = [
   },
 ];
 
-function deleteCategoryGet(req, res) {
-  // TODO: To be implemented
-  res.send("WIP");
+async function deleteCategoryGet(req, res) {
+  const currentCategory = await Category.findById(req.params.categoryId);
+  const categoryItems = await Item.find({ category: req.params.categoryId });
+  if (!currentCategory) {
+    res.redirect("/inventory/category");
+  } else {
+    res.render("category/categoryDelete", {
+      title: "Delete Category",
+      currentCategory,
+      categoryItems,
+    });
+  }
 }
 
-function deleteCategoryPost(req, res) {
-  // TODO: To be implemented
-  res.send("WIP");
+async function deleteCategoryPost(req, res, next) {
+  const currentCategory = await Category.findById(req.params.categoryId);
+  const categoryItems = await Item.find({ category: req.params.categoryId });
+  if (!currentCategory) {
+    return res.redirect("/inventory/category");
+  }
+  if (categoryItems.length) {
+    return next(err);
+  }
+  try {
+    await Category.findByIdAndRemove(req.params.categoryId);
+    res.redirect("/inventory/category");
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = {
